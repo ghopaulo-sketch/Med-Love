@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-tema="claro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ff8fb1">
+<title>MedLove 🎀</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================
+   MedLove — tema rosa / Hello Kitty
+   Todas as cores ficam em variáveis para facilitar ajustes
+   ===================================================== */
+:root{
+  --rosa:#ff8fb1;
+  --rosa-forte:#d63a74;      /* fundo de botões (texto branco) */
+  --destaque:#c2306a;        /* texto de destaque */
+  --rosa-claro:#ffe3ee;
+  --fundo:#fff5f9;
+  --bolinha:rgba(255,143,177,.20);
+  --vidro:rgba(255,255,255,.82);
+  --superficie:rgba(255,255,255,.80);
+  --campo:#ffffff;
+  --texto:#4a2338;
+  --texto-suave:#7d5468;
+  --borda:#ffc9dc;
+  --laco:#e8334f;
+  --azul:#5fb4ea;
+  --sombra:0 8px 26px rgba(214,58,116,.16);
+}
+:root[data-tema="escuro"]{
+  --rosa-claro:#3b2030;
+  --fundo:#1d1119;
+  --bolinha:rgba(255,143,177,.07);
+  --vidro:rgba(36,20,30,.85);
+  --superficie:rgba(52,28,43,.80);
+  --campo:#2b1623;
+  --texto:#ffe9f1;
+  --texto-suave:#d3a6bb;
+  --borda:#5a2f45;
+  --destaque:#ff9dbf;
+  --sombra:0 8px 26px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Nunito',ui-rounded,system-ui,'Segoe UI',sans-serif;
+  font-size:17px;line-height:1.55;color:var(--texto);min-height:100vh;
+  background:radial-gradient(circle at 1px 1px,var(--bolinha) 2.4px,transparent 2.8px) 0 0/28px 28px,var(--fundo);
+}
+h1,h2,h3,.marca{font-family:'Fredoka',ui-rounded,system-ui,sans-serif;font-weight:600;letter-spacing:.2px}
+h2{font-size:1.5rem;margin-bottom:6px}
+h3{font-size:1.15rem}
+p{margin-bottom:10px}
+a{color:var(--destaque)}
+:focus-visible{outline:3px solid var(--azul);outline-offset:2px}
+.pular{position:absolute;left:-999px;top:8px;background:#fff;color:#000;padding:8px 12px;border-radius:8px;z-index:100}
+.pular:focus{left:8px}
+
+/* ---------- Topo e navegação ---------- */
+.topo{
+  position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;
+  padding:10px 20px;padding-top:calc(10px + env(safe-area-inset-top,0px));
+  background:var(--vidro);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:2px dashed var(--borda);
+}
+.marca{font-size:1.55rem;display:flex;gap:8px;align-items:center;color:var(--destaque)}
+.laco{display:inline-block;transform-origin:50% 60%;animation:balanco 1.6s ease-in-out .3s 1}
+@keyframes balanco{0%,100%{transform:rotate(0)}25%{transform:rotate(-14deg)}50%{transform:rotate(10deg)}75%{transform:rotate(-6deg)}}
+.abas{display:flex;gap:6px;margin-left:auto}
+.abas button{
+  display:flex;align-items:center;gap:6px;border:2px solid transparent;background:transparent;color:var(--texto);
+  font:inherit;font-weight:700;padding:8px 14px;border-radius:999px;cursor:pointer;min-height:44px;
+}
+.abas button:hover{background:var(--rosa-claro)}
+.abas button.ativa{background:var(--rosa-forte);color:#fff}
+.icone{border:2px solid var(--borda);background:var(--rosa-claro);color:var(--texto);border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer}
+
+main{max-width:1000px;margin:0 auto;padding:24px 18px 40px}
+.aba{display:none}
+.aba.ativa{display:block}
+
+@media (max-width:720px){
+  .topo{padding:8px 14px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
+  #tema{margin-left:auto}
+  .abas{
+    position:fixed;left:0;right:0;bottom:0;margin:0;z-index:30;justify-content:space-around;gap:2px;
+    background:var(--vidro);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-top:2px dashed var(--borda);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));
+  }
+  .abas button{flex-direction:column;gap:0;font-size:.74rem;padding:6px 8px;border-radius:16px;flex:1}
+  .abas button .e{font-size:1.25rem}
+  main{padding-bottom:104px}
+}
+
+/* ---------- Componentes ---------- */
+.painel{
+  background:var(--superficie);border:2px solid var(--borda);border-radius:26px;padding:20px;
+  box-shadow:var(--sombra);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.centro{text-align:center}
+.linha{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.centro .linha{justify-content:center}
+.btn{
+  border:0;border-radius:999px;padding:10px 20px;font:inherit;font-weight:700;background:var(--rosa-forte);color:#fff;
+  cursor:pointer;min-height:44px;transition:transform .12s ease,filter .12s ease;
+}
+.btn:hover{filter:brightness(1.07)}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sec{background:var(--rosa-claro);color:var(--texto);border:2px solid var(--borda)}
+.btn.perigo{background:var(--laco)}
+.btn.mini{padding:6px 12px;min-height:36px;font-size:.9rem}
+input,select,textarea{
+  font:inherit;color:var(--texto);background:var(--campo);border:2px solid var(--borda);
+  border-radius:14px;padding:10px 12px;width:100%;min-height:44px;
+}
+textarea{resize:vertical;min-height:90px}
+label{display:grid;gap:4px;font-weight:700;font-size:.92rem}
+small,.suave{color:var(--texto-suave)}
+.aviso{font-size:.88rem;color:var(--texto-suave);margin-top:18px}
+
+/* ---------- Início ---------- */
+.heroi{
+  position:relative;overflow:hidden;border-radius:32px;padding:30px 28px;margin-bottom:18px;
+  background:linear-gradient(135deg,#ffc2d6 0%,#ff8fb1 100%);color:#4a2338;box-shadow:var(--sombra);
+  border:3px solid #fff;
+}
+.heroi::after{content:"🎀";position:absolute;right:-8px;top:-18px;font-size:9rem;opacity:.35;transform:rotate(14deg)}
+.heroi h1{font-size:clamp(1.7rem,4.5vw,2.5rem);line-height:1.15;margin:4px 0 12px;max-width:16em}
+.heroi .saud{font-weight:700;margin:0}
+.heroi .msg{background:rgba(255,255,255,.65);border-radius:18px;padding:12px 16px;max-width:34em;margin:0;position:relative;z-index:1}
+.grade-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:18px}
+.stat{text-align:center}
+.stat strong{display:block;font-family:'Fredoka',system-ui,sans-serif;font-size:2.4rem;color:var(--destaque);line-height:1.1}
+.atalhos{display:flex;flex-wrap:wrap;gap:10px}
+
+/* ---------- Flashcards ---------- */
+.barra{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin-bottom:14px}
+.barra label{flex:1 1 230px}
+.subabas{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.subabas button{border:2px solid var(--borda);background:var(--rosa-claro);color:var(--texto);font:inherit;font-weight:700;border-radius:999px;padding:8px 16px;cursor:pointer;min-height:40px}
+.subabas button.ativa{background:var(--rosa-forte);border-color:var(--rosa-forte);color:#fff}
+.progresso{height:10px;background:var(--rosa-claro);border-radius:999px;overflow:hidden;margin:6px 0 4px;border:1px solid var(--borda)}
+.progresso div{height:100%;background:var(--rosa);border-radius:999px;transition:width .3s ease}
+.cartao{
+  background:var(--campo);border:3px solid var(--rosa);border-radius:28px;padding:26px 24px;min-height:210px;
+  box-shadow:var(--sombra);font-size:1.25rem;margin:12px 0 14px;cursor:pointer;white-space:pre-wrap;word-break:break-word;
+}
+.cartao .origem{display:block;font-size:.8rem;color:var(--texto-suave);margin-bottom:10px;white-space:normal}
+.resposta{margin-top:18px;padding-top:18px;border-top:2px dashed var(--borda);color:var(--destaque);animation:surge .25s ease-out}
+@keyframes surge{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.dica{color:var(--texto-suave);font-size:.95rem;margin-top:14px}
+.notas{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.notas button{border:0;border-radius:18px;padding:10px 6px;font:inherit;font-weight:700;color:#3a1c2c;cursor:pointer;min-height:56px}
+.notas button small{display:block;font-weight:600;color:#3a1c2c;opacity:.8}
+.n0{background:#ff9aa8}.n1{background:#ffd08a}.n2{background:#b5e6c4}.n3{background:#a6d8f5}
+.form-cartao{display:grid;gap:12px;margin-bottom:16px}
+.lista-cartoes{display:grid;gap:10px;margin-top:12px}
+.item-cartao{display:flex;gap:12px;justify-content:space-between;align-items:flex-start;background:var(--superficie);border:2px solid var(--borda);border-radius:18px;padding:12px 14px}
+.item-cartao .txt{min-width:0;word-break:break-word}
+.item-cartao .txt p{margin:0}
+.item-cartao .meta{font-size:.82rem;color:var(--texto-suave)}
+.item-cartao .acoes{display:flex;gap:6px;flex-shrink:0}
+
+/* ---------- Calculadoras ---------- */
+.calcs{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;align-items:start}
+.calc{background:var(--superficie);border:2px solid var(--borda);border-radius:22px;box-shadow:var(--sombra)}
+.calc summary{list-style:none;cursor:pointer;display:flex;gap:12px;align-items:center;padding:14px 16px;border-radius:22px;min-height:60px}
+.calc summary::-webkit-details-marker{display:none}
+.calc summary .emo{font-size:1.8rem}
+.calc summary strong{display:block;font-family:'Fredoka',system-ui,sans-serif;font-size:1.1rem}
+.calc summary small{display:block;line-height:1.3}
+.calc[open] summary{border-bottom:2px dashed var(--borda);border-bottom-left-radius:0;border-bottom-right-radius:0}
+.calc-corpo{padding:14px 16px 16px;display:grid;gap:12px}
+.resultado{border-radius:16px;padding:12px 14px;font-size:.95rem}
+.resultado.vazio{background:transparent;color:var(--texto-suave);border:2px dashed var(--borda)}
+.resultado.erro{background:#ffe0e3;color:#7a1226}
+.resultado.ok{background:var(--rosa-claro);border:2px solid var(--borda)}
+.resultado .principal{font-family:'Fredoka',system-ui,sans-serif;font-size:1.8rem;color:var(--destaque);line-height:1.2}
+.resultado .faixa{font-weight:700;margin-bottom:6px}
+.resultado ul{padding-left:18px;margin-top:6px;color:var(--texto-suave)}
+.nota{font-size:.8rem;color:var(--texto-suave);margin:0}
+
+/* ---------- Biblioteca ---------- */
+.categoria{margin-top:22px}
+.categoria h3{margin-bottom:10px}
+.grade-links{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.link{
+  display:block;text-decoration:none;color:var(--texto);background:var(--superficie);border:2px solid var(--borda);
+  border-radius:20px;padding:14px 16px;box-shadow:var(--sombra);transition:transform .15s ease,border-color .15s ease;height:100%;
+}
+.link:hover{transform:translateY(-3px);border-color:var(--rosa)}
+.link strong{display:block;color:var(--destaque);font-family:'Fredoka',system-ui,sans-serif;font-size:1.05rem}
+.link span{font-size:.9rem;color:var(--texto-suave)}
+.link-meu{position:relative}
+.link-meu .x{position:absolute;right:8px;top:8px}
+
+/* ---------- Aviso rápido ---------- */
+.toast{
+  position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:60;
+  background:var(--texto);color:var(--fundo);padding:10px 18px;border-radius:999px;font-weight:700;max-width:90vw;
+  box-shadow:0 6px 20px rgba(0,0,0,.25);animation:surge .2s ease-out;
+}
+@media (min-width:721px){.toast{bottom:28px}}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+<a class="pular" href="#principal">Pular para o conteúdo</a>
+
+<header class="topo">
+  <div class="marca"><span class="laco" aria-hidden="true">🎀</span><span>MedLove</span></div>
+  <nav class="abas" id="abas" aria-label="Seções do site">
+    <button data-aba="inicio" class="ativa"><span class="e" aria-hidden="true">🏠</span><span>Início</span></button>
+    <button data-aba="flashcards"><span class="e" aria-hidden="true">🃏</span><span>Flashcards</span></button>
+    <button data-aba="calculadoras"><span class="e" aria-hidden="true">🧮</span><span>Calculadoras</span></button>
+    <button data-aba="biblioteca"><span class="e" aria-hidden="true">📚</span><span>Biblioteca</span></button>
+  </nav>
+  <button class="icone" id="tema" aria-label="Alternar entre modo claro e escuro" title="Modo claro/escuro">🌙</button>
+</header>
+
+<main id="principal">
+
+  <!-- ===================== INÍCIO ===================== -->
+  <section id="aba-inicio" class="aba ativa">
+    <div class="heroi">
+      <p class="saud" id="saudacao"></p>
+      <h1>Seu espaço para estudar medicina 🎀</h1>
+      <p class="msg" id="msgDia"></p>
+    </div>
+    <div class="grade-stats">
+      <div class="painel stat"><strong id="stRevisar">0</strong><span>cartões para revisar agora</span></div>
+      <div class="painel stat"><strong id="stHoje">0</strong><span>revisados hoje</span></div>
+      <div class="painel stat"><strong id="stTotal">0</strong><span>cartões no total</span></div>
+    </div>
+    <div class="atalhos">
+      <button class="btn" data-ir="flashcards">🃏 Estudar flashcards</button>
+      <button class="btn sec" data-ir="calculadoras">🧮 Calculadoras</button>
+      <button class="btn sec" data-ir="biblioteca">📚 Biblioteca de links</button>
+    </div>
+    <p class="aviso">Este site é uma ferramenta de estudo. As calculadoras e os cartões não substituem protocolos oficiais, bulas, o material do curso nem o julgamento clínico. Seus dados ficam salvos somente neste aparelho: faça backup na aba Flashcards.</p>
+  </section>
+
+  <!-- ===================== FLASHCARDS ===================== -->
+  <section id="aba-flashcards" class="aba">
+    <div class="barra">
+      <label for="selBaralho">Baralho
+        <select id="selBaralho"></select>
+      </label>
+      <button class="btn sec" data-acao="novoBaralho">+ Novo baralho</button>
+      <button class="btn sec" data-acao="renomearBaralho" id="btnRenomear">✏️ Renomear</button>
+      <button class="btn sec" data-acao="excluirBaralho" id="btnExcluirBaralho">🗑️ Excluir</button>
+    </div>
+    <div class="subabas" id="subabas">
+      <button data-sub="estudar" class="ativa">Estudar</button>
+      <button data-sub="cartoes">Cartões</button>
+      <button data-sub="backup">Backup</button>
+    </div>
+    <div id="sub-estudar"></div>
+    <div id="sub-cartoes" hidden></div>
+    <div id="sub-backup" hidden></div>
+    <input type="file" id="arqImport" accept="application/json,.json" hidden>
+  </section>
+
+  <!-- ===================== CALCULADORAS ===================== -->
+  <section id="aba-calculadoras" class="aba">
+    <h2>Calculadoras médicas 🧮</h2>
+    <p class="suave">Toque em uma calculadora para abrir. O resultado aparece enquanto você digita. Ferramentas para estudo: confira sempre fórmulas e valores de referência no material do curso.</p>
+    <div class="calcs" id="listaCalcs"></div>
+  </section>
+
+  <!-- ===================== BIBLIOTECA ===================== -->
+  <section id="aba-biblioteca" class="aba">
+    <h2>Biblioteca de links 📚</h2>
+    <p class="suave">Fontes oficiais e confiáveis, organizadas por tipo. Alguns sites exigem assinatura ou acesso da faculdade.</p>
+    <label for="buscaLinks" style="margin-top:10px">Buscar
+      <input type="search" id="buscaLinks" placeholder="Ex.: diretrizes, anatomia, bula...">
+    </label>
+    <div id="listaBiblioteca"></div>
+    <div class="categoria">
+      <h3>💗 Meus links</h3>
+      <form id="formLink" class="painel form-cartao" autocomplete="off">
+        <label for="linkNome">Nome<input id="linkNome" maxlength="60" required></label>
+        <label for="linkUrl">Endereço (https://...)<input id="linkUrl" type="url" required placeholder="https://"></label>
+        <label for="linkDesc">Descrição (opcional)<input id="linkDesc" maxlength="120"></label>
+        <div><button class="btn" type="submit">Adicionar link</button></div>
+      </form>
+      <div class="grade-links" id="meusLinks"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+/* =====================================================
+   CONFIGURAÇÕES — personalize aqui 💗
+   ===================================================== */
+const CONFIG = {
+  nome: "Amor",   // nome que aparece na saudação
+  mensagens: [    // "mensagem do dia": uma por dia, em rodízio
+    "Cada página estudada hoje é um passo a mais rumo ao jaleco. 🥼",
+    "Você não precisa ser perfeita, só constante. 💗",
+    "Descansar também faz parte de estudar. Respira fundo e continua. 🌸",
+    "Um dia de cada vez: o resultado vem do que você faz hoje. ✨",
+    "Eu acredito em você, hoje e sempre. 🎀",
+    "Os erros de hoje viram os acertos de amanhã. 📖",
+    "A futura doutora está treinando agora. 🩺"
+  ]
+};
+
+/* =====================================================
+   Utilitários
+   ===================================================== */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const fmt = (n, d = 1) => n.toLocaleString('pt-BR', {minimumFractionDigits: d, maximumFractionDigits: d});
+const hoje = () => { const d = new Date(); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const embaralhar = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+/* Armazenamento local (só neste aparelho) */
+const Store = {
+  get(k, padrao) { try { const v = localStorage.getItem('medlove:' + k); return v ? JSON.parse(v) : padrao; } catch (e) { return padrao; } },
+  set(k, v) { try { localStorage.setItem('medlove:' + k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+};
+
+let toastTimer;
+function avisar(msg) {
+  $$('.toast').forEach(t => t.remove());
+  const t = document.createElement('div');
+  t.className = 'toast'; t.setAttribute('role', 'status'); t.textContent = msg;
+  document.body.appendChild(t);
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.remove(), 3200);
+}
+
+/* =====================================================
+   Dados dos flashcards
+   ===================================================== */
+const DIA = 86400000;
+
+function criarDadosIniciais() {
+  const decks = [
+    {id: 'anat', nome: 'Anatomia', emoji: '🦴'},
+    {id: 'fisio', nome: 'Fisiologia', emoji: '🫀'},
+    {id: 'bioq', nome: 'Bioquímica', emoji: '🧪'},
+    {id: 'farma', nome: 'Farmacologia', emoji: '💊'},
+    {id: 'micro', nome: 'Microbiologia', emoji: '🦠'},
+    {id: 'histo', nome: 'Histologia e Embriologia', emoji: '🔬'},
+    {id: 'clin', nome: 'Clínica e Semiologia', emoji: '🩺'},
+    {id: 'outros', nome: 'Outros', emoji: '📝'}
+  ];
+  const exemplos = [
+    ['anat', 'Quantos ossos tem o esqueleto de um adulto?', '206 ossos. O recém-nascido tem mais, pois vários se fundem ao longo do desenvolvimento.'],
+    ['anat', 'Qual nervo é comprimido na síndrome do túnel do carpo?', 'Nervo mediano.'],
+    ['fisio', 'Qual é a fórmula do débito cardíaco?', 'DC = FC × VS (frequência cardíaca × volume sistólico).'],
+    ['fisio', 'Qual íon entra no neurônio na fase de despolarização do potencial de ação?', 'Sódio (Na⁺), por canais de sódio dependentes de voltagem.'],
+    ['bioq', 'Qual organela produz a maior parte do ATP da célula?', 'A mitocôndria (por fosforilação oxidativa).'],
+    ['farma', 'Qual é o antídoto da intoxicação por paracetamol?', 'N-acetilcisteína.'],
+    ['farma', 'Qual é o antídoto da intoxicação por opioides?', 'Naloxona.'],
+    ['farma', 'Qual é o antídoto da heparina?', 'Sulfato de protamina.'],
+    ['micro', 'Na coloração de Gram, qual corante inicial deixa as bactérias gram-positivas roxas?', 'Cristal violeta, retido pela parede espessa de peptidoglicano.'],
+    ['histo', 'Quais são os três folhetos embrionários?', 'Ectoderma, mesoderma e endoderma.'],
+    ['clin', 'Quais são os sinais vitais clássicos?', 'Temperatura, pulso (frequência cardíaca), frequência respiratória e pressão arterial. A saturação de O₂ costuma ser avaliada junto.'],
+    ['clin', 'O que a Escala de Coma de Glasgow avalia?', 'Abertura ocular, resposta verbal e resposta motora (total de 3 a 15 pontos).']
+  ];
+  const cards = exemplos.map(([deckId, frente, verso]) => ({
+    id: uid(), deckId, frente, verso, ease: 2.5, intervalo: 0, due: 0, reps: 0, criado: Date.now()
+  }));
+  return {decks, cards};
+}
+
+let dados = Store.get('dados', null) || criarDadosIniciais();
+let meusLinks = Store.get('links', []);
+const ui = {aba: 'inicio', baralho: 'todos', sub: 'estudar', sessao: null, editandoId: null, busca: ''};
+
+function salvar() {
+  if (!Store.set('dados', dados)) avisar('Não foi possível salvar neste navegador. Faça um backup agora.');
+}
+
+const baralhoPorId = id => dados.decks.find(d => d.id === id);
+const cartoesDoBaralho = () => ui.baralho === 'todos' ? dados.cards : dados.cards.filter(c => c.deckId === ui.baralho);
+const nomeBaralhoAtual = () => ui.baralho === 'todos' ? 'Todos os baralhos' : (baralhoPorId(ui.baralho)?.nome || 'Baralho');
+
+/* ---------- Repetição espaçada (simplificada, inspirada no SM-2) ---------- */
+function proxima(c, nota) {            // nota: 0 errei, 1 difícil, 2 bom, 3 fácil
+  let ease = c.ease || 2.5, iv = c.intervalo || 0;
+  if (nota === 0) { ease = Math.max(1.3, ease - 0.2); return {ease, iv: 0, due: Date.now() + 10 * 60000}; }
+  if (nota === 1) { ease = Math.max(1.3, ease - 0.15); iv = iv < 1 ? 1 : Math.max(iv + 1, Math.round(iv * 1.2)); }
+  else if (nota === 2) { iv = iv < 1 ? 1 : iv < 2 ? 3 : Math.round(iv * ease); }
+  else { ease = ease + 0.15; iv = iv < 1 ? 3 : Math.max(iv + 1, Math.round(iv * ease * 1.3)); }
+  return {ease, iv, due: Date.now() + iv * DIA};
+}
+function rotuloIntervalo(iv) {
+  if (iv === 0) return '10 min';
+  if (iv === 1) return '1 dia';
+  if (iv < 30) return iv + ' dias';
+  if (iv < 365) return Math.round(iv / 30) + ' meses';
+  return fmt(iv / 365, 1) + ' anos';
+}
+function registrarRevisao() {
+  const s = Store.get('stats', {dia: '', n: 0});
+  if (s.dia !== hoje()) { s.dia = hoje(); s.n = 0; }
+  s.n++; Store.set('stats', s);
+}
+const revisadosHoje = () => { const s = Store.get('stats', {dia: '', n: 0}); return s.dia === hoje() ? s.n : 0; };
+
+/* =====================================================
+   Navegação e tema
+   ===================================================== */
+function ir(aba) {
+  ui.aba = aba;
+  $$('.aba').forEach(s => s.classList.toggle('ativa', s.id === 'aba-' + aba));
+  $$('#abas button').forEach(b => {
+    const on = b.dataset.aba === aba;
+    b.classList.toggle('ativa', on);
+    on ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current');
+  });
+  window.scrollTo({top: 0});
+  try { history.replaceState(null, '', '#' + aba); } catch (e) {}
+  if (aba === 'inicio') atualizarInicio();
+  if (aba === 'flashcards') renderFlash();
+}
+
+function aplicarTema(t) {
+  document.documentElement.dataset.tema = t;
+  $('#tema').textContent = t === 'escuro' ? '☀️' : '🌙';
+  const meta = $('meta[name="theme-color"]'); if (meta) meta.content = t === 'escuro' ? '#1d1119' : '#ff8fb1';
+}
+
+/* =====================================================
+   Início
+   ===================================================== */
+function atualizarInicio() {
+  const h = new Date().getHours();
+  const saud = h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite';
+  $('#saudacao').textContent = `${saud}, ${CONFIG.nome}! 💗`;
+  const diaAno = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / DIA);
+  $('#msgDia').textContent = CONFIG.mensagens[diaAno % CONFIG.mensagens.length];
+  const agora = Date.now();
+  $('#stRevisar').textContent = dados.cards.filter(c => c.due <= agora).length;
+  $('#stHoje').textContent = revisadosHoje();
+  $('#stTotal').textContent = dados.cards.length;
+}
+
+/* =====================================================
+   Flashcards — renderização
+   ===================================================== */
+function renderFlash() {
+  // seletor de baralhos com contagem (para revisar / total)
+  const agora = Date.now();
+  const opcoes = [`<option value="todos">🗂️ Todos os baralhos (${dados.cards.filter(c => c.due <= agora).length}/${dados.cards.length})</option>`]
+    .concat(dados.decks.map(d => {
+      const cs = dados.cards.filter(c => c.deckId === d.id);
+      return `<option value="${esc(d.id)}">${esc(d.emoji)} ${esc(d.nome)} (${cs.filter(c => c.due <= agora).length}/${cs.length})</option>`;
+    }));
+  const sel = $('#selBaralho');
+  sel.innerHTML = opcoes.join('');
+  if (ui.baralho !== 'todos' && !baralhoPorId(ui.baralho)) ui.baralho = 'todos';
+  sel.value = ui.baralho;
+  $('#btnRenomear').hidden = $('#btnExcluirBaralho').hidden = ui.baralho === 'todos';
+
+  $$('#subabas button').forEach(b => b.classList.toggle('ativa', b.dataset.sub === ui.sub));
+  ['estudar', 'cartoes', 'backup'].forEach(s => $('#sub-' + s).hidden = s !== ui.sub);
+  if (ui.sub === 'estudar') renderEstudar();
+  if (ui.sub === 'cartoes') renderCartoes();
+  if (ui.sub === 'backup') renderBackup();
+}
+
+function renderEstudar() {
+  const box = $('#sub-estudar');
+  const s = ui.sessao;
+  const lista = cartoesDoBaralho();
+  const devidos = lista.filter(c => c.due <= Date.now()).length;
+
+  if (!s) {
+    let msg;
+    if (!lista.length) msg = 'Este baralho ainda não tem cartões. Crie o primeiro na aba Cartões 💗';
+    else if (devidos) msg = `Você tem <strong>${devidos}</strong> cartão(ões) para revisar agora.`;
+    else msg = 'Nada para revisar agora. Volte mais tarde ou use "Estudar tudo" para treinar mesmo assim.';
+    box.innerHTML = `<div class="painel centro"><h2>${esc(nomeBaralhoAtual())}</h2><p>${msg}</p>
+      <div class="linha">
+        <button class="btn" data-acao="iniciar" ${devidos ? '' : 'disabled'}>Começar revisão</button>
+        <button class="btn sec" data-acao="iniciarTodos" ${lista.length ? '' : 'disabled'}>Estudar tudo</button>
+      </div></div>`;
+    return;
+  }
+
+  // descarta cartões que foram excluídos durante a sessão
+  while (s.fila.length && !dados.cards.find(x => x.id === s.fila[0])) s.fila.shift();
+
+  if (!s.fila.length) {
+    box.innerHTML = `<div class="painel centro"><h2>Revisão concluída 🎉</h2><p>Você revisou <strong>${s.feitos}</strong> cartão(ões). Continue assim!</p>
+      <div class="linha"><button class="btn" data-acao="encerrar">Voltar</button></div></div>`;
+    return;
+  }
+
+  const c = dados.cards.find(x => x.id === s.fila[0]);
+  const deck = baralhoPorId(c.deckId);
+  const pct = s.total ? Math.round(s.feitos / s.total * 100) : 0;
+  const botoes = [['Errei', 0], ['Difícil', 1], ['Bom', 2], ['Fácil', 3]].map(([t, n]) =>
+    `<button class="n${n}" data-acao="avaliar" data-nota="${n}">${n + 1}. ${t}<small>${rotuloIntervalo(proxima(c, n).iv)}</small></button>`).join('');
+
+  box.innerHTML = `
+    <div class="progresso" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><div style="width:${pct}%"></div></div>
+    <small>${s.feitos} de ${s.total} concluídos · restam ${s.fila.length} na fila</small>
+    <div class="cartao" id="cartaoEstudo" tabindex="0" role="button" aria-label="${s.virado ? 'Cartão com resposta visível' : 'Virar cartão para ver a resposta'}" data-acao="virar">
+      <span class="origem">${deck ? esc(deck.emoji + ' ' + deck.nome) : ''}</span>
+      ${esc(c.frente)}
+      ${s.virado ? `<div class="resposta">${esc(c.verso)}</div>` : ''}
+    </div>
+    ${s.virado ? `<div class="notas">${botoes}</div>`
+               : `<div class="linha"><button class="btn" data-acao="virar">Mostrar resposta</button></div>`}
+    <p class="dica">Atalhos no computador: Espaço mostra a resposta; 1, 2, 3 e 4 avaliam.</p>
+    <div class="linha"><button class="btn sec mini" data-acao="encerrar">Encerrar sessão</button></div>`;
+  if (s.virado) { const primeiro = $('.notas button', box); if (primeiro && document.activeElement === document.body) primeiro.blur(); }
+}
+
+function renderCartoes() {
+  const box = $('#sub-cartoes');
+  const editando = ui.editandoId ? dados.cards.find(c => c.id === ui.editandoId) : null;
+  const deckPadrao = editando ? editando.deckId : (ui.baralho !== 'todos' ? ui.baralho : dados.decks[0]?.id);
+  const termo = ui.busca.trim().toLowerCase();
+  const lista = cartoesDoBaralho()
+    .filter(c => !termo || (c.frente + ' ' + c.verso).toLowerCase().includes(termo))
+    .sort((a, b) => b.criado - a.criado);
+  const limite = 300;
+
+  box.innerHTML = `
+    <form class="painel form-cartao" id="formCartao" autocomplete="off">
+      <h3>${editando ? 'Editar cartão' : 'Novo cartão'}</h3>
+      <label for="cDeck">Baralho
+        <select id="cDeck">${dados.decks.map(d => `<option value="${esc(d.id)}" ${d.id === deckPadrao ? 'selected' : ''}>${esc(d.emoji)} ${esc(d.nome)}</option>`).join('')}</select>
+      </label>
+      <label for="cFrente">Pergunta (frente)<textarea id="cFrente" required>${editando ? esc(editando.frente) : ''}</textarea></label>
+      <label for="cVerso">Resposta (verso)<textarea id="cVerso" required>${editando ? esc(editando.verso) : ''}</textarea></label>
+      <div class="linha">
+        <button class="btn" type="submit">${editando ? 'Salvar alterações' : 'Adicionar cartão'}</button>
+        ${editando ? '<button class="btn sec" type="button" data-acao="cancelarEdicao">Cancelar</button>' : ''}
+      </div>
+    </form>
+    <label for="buscaCartoes" style="margin-top:16px">Buscar nos cartões de “${esc(nomeBaralhoAtual())}”
+      <input type="search" id="buscaCartoes" value="${esc(ui.busca)}" placeholder="Digite uma palavra...">
+    </label>
+    <p class="suave" style="margin-top:8px">${lista.length} cartão(ões) encontrado(s)${lista.length > limite ? ` (mostrando os ${limite} mais recentes)` : ''}.</p>
+    <div class="lista-cartoes">
+      ${lista.slice(0, limite).map(c => {
+        const d = baralhoPorId(c.deckId);
+        const prazo = c.due <= Date.now() ? 'para revisar agora' : 'próxima revisão em ' + new Date(c.due).toLocaleDateString('pt-BR');
+        return `<div class="item-cartao">
+          <div class="txt"><p><strong>${esc(c.frente)}</strong></p><p>${esc(c.verso)}</p>
+            <p class="meta">${d ? esc(d.emoji + ' ' + d.nome) : ''} · ${prazo}</p></div>
+          <div class="acoes">
+            <button class="btn sec mini" data-acao="editarCartao" data-id="${esc(c.id)}" aria-label="Editar cartão">✏️</button>
+            <button class="btn sec mini" data-acao="excluirCartao" data-id="${esc(c.id)}" aria-label="Excluir cartão">🗑️</button>
+          </div></div>`;
+      }).join('')}
+    </div>`;
+}
+
+function renderBackup() {
+  $('#sub-backup').innerHTML = `
+    <div class="painel">
+      <h2>Backup dos dados 💾</h2>
+      <p>Tudo fica salvo somente neste aparelho e neste navegador. Se limpar os dados do navegador ou trocar de aparelho, os cartões somem. Por isso, exporte um backup de vez em quando e use o arquivo para levar seus cartões para outro aparelho.</p>
+      <div class="linha">
+        <button class="btn" data-acao="exportar">⬇️ Exportar backup</button>
+        <button class="btn sec" data-acao="importar">⬆️ Importar backup</button>
+        <button class="btn perigo" data-acao="apagarTudo">Apagar tudo</button>
+      </div>
+      <p class="aviso">Importar substitui os cartões, baralhos e links atuais pelos do arquivo.</p>
+    </div>`;
+}
+
+/* =====================================================
+   Flashcards — ações
+   ===================================================== */
+const acoes = {
+  iniciar() { iniciarSessao(false); },
+  iniciarTodos() { iniciarSessao(true); },
+  encerrar() { ui.sessao = null; renderFlash(); atualizarInicio(); },
+  virar() { if (ui.sessao && !ui.sessao.virado) { ui.sessao.virado = true; renderEstudar(); } },
+  avaliar(b) { avaliar(Number(b.dataset.nota)); },
+
+  novoBaralho() {
+    const nome = (prompt('Nome do novo baralho:') || '').trim();
+    if (!nome) return;
+    const d = {id: uid(), nome: nome.slice(0, 40), emoji: '📘'};
+    dados.decks.push(d); ui.baralho = d.id; ui.sessao = null; salvar(); renderFlash();
+    avisar('Baralho criado 💗');
+  },
+  renomearBaralho() {
+    const d = baralhoPorId(ui.baralho); if (!d) return;
+    const nome = (prompt('Novo nome do baralho:', d.nome) || '').trim();
+    if (!nome) return;
+    d.nome = nome.slice(0, 40); salvar(); renderFlash();
+  },
+  excluirBaralho() {
+    const d = baralhoPorId(ui.baralho); if (!d) return;
+    const n = dados.cards.filter(c => c.deckId === d.id).length;
+    if (!confirm(`Excluir o baralho "${d.nome}" e seus ${n} cartão(ões)? Esta ação não pode ser desfeita.`)) return;
+    dados.cards = dados.cards.filter(c => c.deckId !== d.id);
+    dados.decks = dados.decks.filter(x => x.id !== d.id);
+    ui.baralho = 'todos'; ui.sessao = null; salvar(); renderFlash();
+    avisar('Baralho excluído');
+  },
+  editarCartao(b) { ui.editandoId = b.dataset.id; renderCartoes(); $('#cFrente').focus(); window.scrollTo({top: 0, behavior: 'smooth'}); },
+  cancelarEdicao() { ui.editandoId = null; renderCartoes(); },
+  excluirCartao(b) {
+    if (!confirm('Excluir este cartão?')) return;
+    dados.cards = dados.cards.filter(c => c.id !== b.dataset.id);
+    if (ui.editandoId === b.dataset.id) ui.editandoId = null;
+    salvar(); renderFlash(); avisar('Cartão excluído');
+  },
+  exportar() { exportar(); },
+  importar() { $('#arqImport').click(); },
+  apagarTudo() {
+    if (!confirm('Apagar TODOS os baralhos, cartões e links deste aparelho? Exporte um backup antes se quiser guardar.')) return;
+    dados = criarDadosIniciais(); meusLinks = [];
+    Store.set('links', meusLinks); Store.set('stats', {dia: '', n: 0});
+    ui.baralho = 'todos'; ui.sessao = null; ui.editandoId = null; salvar();
+    renderFlash(); renderMeusLinks(); atualizarInicio();
+    avisar('Tudo reiniciado com os cartões de exemplo');
+  },
+  removerLink(b) {
+    meusLinks = meusLinks.filter(l => l.id !== b.dataset.id);
+    Store.set('links', meusLinks); renderMeusLinks();
+  }
+};
+
+function iniciarSessao(todos) {
+  const agora = Date.now();
+  const lista = embaralhar(cartoesDoBaralho().filter(c => todos || c.due <= agora));
+  if (!lista.length) { avisar('Nenhum cartão para estudar agora'); return; }
+  ui.sessao = {fila: lista.map(c => c.id), total: lista.length, feitos: 0, virado: false};
+  renderEstudar();
+}
+
+function avaliar(nota) {
+  const s = ui.sessao; if (!s || !s.virado) return;
+  const id = s.fila.shift();
+  const c = dados.cards.find(x => x.id === id);
+  if (c) {
+    const r = proxima(c, nota);
+    c.ease = r.ease; c.intervalo = r.iv; c.due = r.due; c.reps = (c.reps || 0) + 1;
+    registrarRevisao();
+    if (nota === 0) s.fila.splice(Math.min(3, s.fila.length), 0, id);   // volta a aparecer em alguns cartões
+    else s.feitos++;
+  }
+  s.virado = false;
+  salvar(); renderFlash(); atualizarInicio();
+}
+
+function exportar() {
+  const conteudo = {app: 'medlove', versao: 1, exportadoEm: new Date().toISOString(), dados, links: meusLinks};
+  const blob = new Blob([JSON.stringify(conteudo, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'medlove-backup-' + hoje() + '.json';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1500);
+  avisar('Backup exportado 💾');
+}
+
+function importar(arquivo) {
+  const leitor = new FileReader();
+  leitor.onload = () => {
+    try {
+      const obj = JSON.parse(leitor.result);
+      if (!obj || !obj.dados || !Array.isArray(obj.dados.decks) || !Array.isArray(obj.dados.cards)) throw new Error('formato');
+      if (!confirm('Importar vai SUBSTITUIR os dados atuais deste aparelho. Continuar?')) return;
+      dados = {
+        decks: obj.dados.decks.map(d => ({id: String(d.id), nome: String(d.nome || 'Baralho'), emoji: String(d.emoji || '📘')})),
+        cards: obj.dados.cards.map(c => ({
+          id: String(c.id || uid()), deckId: String(c.deckId), frente: String(c.frente || ''), verso: String(c.verso || ''),
+          ease: Number(c.ease) || 2.5, intervalo: Number(c.intervalo) || 0, due: Number(c.due) || 0,
+          reps: Number(c.reps) || 0, criado: Number(c.criado) || Date.now()
+        }))
+      };
+      meusLinks = Array.isArray(obj.links) ? obj.links.filter(l => /^https?:\/\//i.test(l.url)).map(l => ({id: String(l.id || uid()), nome: String(l.nome), url: String(l.url), desc: String(l.desc || '')})) : [];
+      Store.set('links', meusLinks);
+      ui.baralho = 'todos'; ui.sessao = null; ui.editandoId = null; salvar();
+      renderFlash(); renderMeusLinks(); atualizarInicio();
+      avisar('Backup importado com sucesso 💗');
+    } catch (e) {
+      avisar('Arquivo inválido. Use um backup exportado pelo MedLove.');
+    }
+  };
+  leitor.readAsText(arquivo);
+}
+
+/* =====================================================
+   Calculadoras
+   ===================================================== */
+const parseData = s => { const [a, m, d] = s.split('-').map(Number); return Date.UTC(a, m - 1, d); };
+const fmtData = ms => new Date(ms).toLocaleDateString('pt-BR', {timeZone: 'UTC'});
+
+const CALCS = [
+  {
+    id: 'imc', emoji: '⚖️', titulo: 'IMC', desc: 'Índice de massa corporal (adultos)',
+    campos: [
+      {id: 'peso', rot: 'Peso (kg)', min: 1, max: 500},
+      {id: 'alt', rot: 'Altura (cm)', min: 30, max: 260}
+    ],
+    nota: 'Classificação da OMS para adultos. Não se aplica a crianças, gestantes ou atletas com muita massa muscular.',
+    calc: v => {
+      const m = v.alt / 100, imc = v.peso / (m * m);
+      const cl = imc < 18.5 ? 'Baixo peso' : imc < 25 ? 'Peso adequado (eutrofia)' : imc < 30 ? 'Sobrepeso'
+        : imc < 35 ? 'Obesidade grau I' : imc < 40 ? 'Obesidade grau II' : 'Obesidade grau III';
+      return {principal: fmt(imc, 1) + ' kg/m²', faixa: cl, detalhes: ['Fórmula: peso (kg) ÷ altura² (m)']};
+    }
+  },
+  {
+    id: 'sc', emoji: '📏', titulo: 'Superfície corporal', desc: 'Fórmula de Mosteller',
+    campos: [
+      {id: 'peso', rot: 'Peso (kg)', min: 1, max: 500},
+      {id: 'alt', rot: 'Altura (cm)', min: 30, max: 260}
+    ],
+    nota: 'Muito usada para doses de quimioterápicos e índices cardíacos.',
+    calc: v => ({principal: fmt(Math.sqrt(v.alt * v.peso / 3600), 2) + ' m²', detalhes: ['Fórmula: √(altura em cm × peso em kg ÷ 3600)']})
+  },
+  {
+    id: 'pam', emoji: '🩸', titulo: 'Pressão arterial média', desc: 'PAM e pressão de pulso',
+    campos: [
+      {id: 'pas', rot: 'Pressão sistólica (mmHg)', min: 40, max: 300},
+      {id: 'pad', rot: 'Pressão diastólica (mmHg)', min: 20, max: 200}
+    ],
+    nota: 'PAM normal em torno de 70 a 100 mmHg. Em choque séptico, 65 mmHg é a meta usual.',
+    calc: v => {
+      if (v.pad > v.pas) return {erro: 'A pressão diastólica não pode ser maior que a sistólica.'};
+      return {principal: fmt((v.pas + 2 * v.pad) / 3, 0) + ' mmHg',
+        detalhes: ['Fórmula: (PAS + 2 × PAD) ÷ 3', 'Pressão de pulso: ' + fmt(v.pas - v.pad, 0) + ' mmHg']};
+    }
+  },
+  {
+    id: 'cg', emoji: '🧫', titulo: 'Clearance de creatinina', desc: 'Cockcroft-Gault',
+    campos: [
+      {id: 'idade', rot: 'Idade (anos)', min: 18, max: 120},
+      {id: 'peso', rot: 'Peso (kg)', min: 20, max: 300},
+      {id: 'cr', rot: 'Creatinina sérica (mg/dL)', min: 0.1, max: 20},
+      {id: 'sexo', rot: 'Sexo biológico', tipo: 'select', opcoes: [{v: 'F', t: 'Feminino'}, {v: 'M', t: 'Masculino'}]}
+    ],
+    nota: 'Estimativa usada principalmente para ajustar doses de medicamentos.',
+    calc: v => {
+      let cl = ((140 - v.idade) * v.peso) / (72 * v.cr);
+      if (v.sexo === 'F') cl *= 0.85;
+      return {principal: fmt(cl, 0) + ' mL/min', detalhes: ['Fórmula: [(140 − idade) × peso] ÷ (72 × creatinina), multiplicado por 0,85 se mulher']};
+    }
+  },
+  {
+    id: 'tfg', emoji: '🫘', titulo: 'TFG estimada', desc: 'CKD-EPI 2021 (sem raça)',
+    campos: [
+      {id: 'idade', rot: 'Idade (anos)', min: 18, max: 120},
+      {id: 'cr', rot: 'Creatinina sérica (mg/dL)', min: 0.1, max: 20},
+      {id: 'sexo', rot: 'Sexo biológico', tipo: 'select', opcoes: [{v: 'F', t: 'Feminino'}, {v: 'M', t: 'Masculino'}]}
+    ],
+    nota: 'A classificação da doença renal crônica também depende de albuminúria e do tempo (mais de 3 meses).',
+    calc: v => {
+      const f = v.sexo === 'F', k = f ? 0.7 : 0.9, a = f ? -0.241 : -0.302, r = v.cr / k;
+      const tfg = 142 * Math.pow(Math.min(r, 1), a) * Math.pow(Math.max(r, 1), -1.2) * Math.pow(0.9938, v.idade) * (f ? 1.012 : 1);
+      const g = tfg >= 90 ? 'G1 (normal ou elevada)' : tfg >= 60 ? 'G2 (levemente diminuída)' : tfg >= 45 ? 'G3a (leve a moderadamente diminuída)'
+        : tfg >= 30 ? 'G3b (moderada a gravemente diminuída)' : tfg >= 15 ? 'G4 (gravemente diminuída)' : 'G5 (falência renal)';
+      return {principal: fmt(tfg, 0) + ' mL/min/1,73 m²', faixa: 'Categoria ' + g, detalhes: ['Equação CKD-EPI 2021 para creatinina']};
+    }
+  },
+  {
+    id: 'glasgow', emoji: '🧠', titulo: 'Escala de Glasgow', desc: 'Nível de consciência',
+    campos: [
+      {id: 'o', rot: 'Abertura ocular', tipo: 'select', opcoes: [
+        {v: '4', t: '4 · Espontânea'}, {v: '3', t: '3 · Ao estímulo verbal'}, {v: '2', t: '2 · À dor'}, {v: '1', t: '1 · Nenhuma'}]},
+      {id: 'vb', rot: 'Resposta verbal', tipo: 'select', opcoes: [
+        {v: '5', t: '5 · Orientado'}, {v: '4', t: '4 · Confuso'}, {v: '3', t: '3 · Palavras inapropriadas'},
+        {v: '2', t: '2 · Sons incompreensíveis'}, {v: '1', t: '1 · Nenhuma'}]},
+      {id: 'm', rot: 'Resposta motora', tipo: 'select', opcoes: [
+        {v: '6', t: '6 · Obedece comandos'}, {v: '5', t: '5 · Localiza a dor'}, {v: '4', t: '4 · Retirada inespecífica'},
+        {v: '3', t: '3 · Flexão anormal (decorticação)'}, {v: '2', t: '2 · Extensão anormal (descerebração)'}, {v: '1', t: '1 · Nenhuma'}]}
+    ],
+    nota: 'Trauma craniano: leve 13 a 15, moderado 9 a 12, grave 3 a 8.',
+    calc: v => {
+      const o = Number(v.o), vb = Number(v.vb), m = Number(v.m), t = o + vb + m;
+      const cl = t >= 13 ? 'Trauma leve' : t >= 9 ? 'Trauma moderado' : 'Trauma grave';
+      return {principal: `Glasgow ${t}`, faixa: cl, detalhes: [`O${o} V${vb} M${m}`]};
+    }
+  },
+  {
+    id: 'gota', emoji: '💧', titulo: 'Gotejamento', desc: 'Velocidade de infusão',
+    campos: [
+      {id: 'vol', rot: 'Volume total (mL)', min: 1, max: 10000},
+      {id: 'tempo', rot: 'Tempo de infusão (horas)', min: 0.05, max: 72}
+    ],
+    nota: 'Considera 1 mL = 20 gotas (macrogotas) e 1 mL = 60 microgotas.',
+    calc: v => ({
+      principal: fmt(v.vol / (v.tempo * 3), 0) + ' gotas/min',
+      detalhes: ['Microgotas: ' + fmt(v.vol / v.tempo, 0) + ' microgotas/min', 'Vazão: ' + fmt(v.vol / v.tempo, 1) + ' mL/h',
+        'Fórmulas: gotas/min = volume ÷ (3 × horas); microgotas/min = volume ÷ horas']
+    })
+  },
+  {
+    id: 'dose', emoji: '💉', titulo: 'Dose por peso', desc: 'mg/kg e volume a administrar',
+    campos: [
+      {id: 'dose', rot: 'Dose prescrita (mg/kg)', min: 0.001, max: 10000},
+      {id: 'peso', rot: 'Peso (kg)', min: 0.3, max: 300},
+      {id: 'conc', rot: 'Concentração do medicamento (mg/mL)', min: 0.01, max: 10000}
+    ],
+    nota: 'Sempre confira dose máxima, via e apresentação na bula e no protocolo oficial.',
+    calc: v => {
+      const mg = v.dose * v.peso, ml = mg / v.conc;
+      return {principal: fmt(mg, 2) + ' mg', faixa: 'Volume: ' + fmt(ml, 2) + ' mL',
+        detalhes: ['Dose total = mg/kg × peso', 'Volume = dose total ÷ concentração']};
+    }
+  },
+  {
+    id: 'dpp', emoji: '🤰', titulo: 'Idade gestacional e DPP', desc: 'A partir da data da última menstruação',
+    campos: [
+      {id: 'dum', rot: 'Data da última menstruação (DUM)', tipo: 'date'},
+      {id: 'ref', rot: 'Data de referência', tipo: 'date', hoje: true}
+    ],
+    nota: 'DPP calculada como DUM + 280 dias (40 semanas), em ciclos regulares de 28 dias. A ultrassonografia precoce pode corrigir a data.',
+    calc: v => {
+      const d = parseData(v.dum), r = parseData(v.ref), dias = Math.floor((r - d) / DIA);
+      if (dias < 0) return {erro: 'A data de referência é anterior à DUM.'};
+      if (dias > 308) return {erro: 'O intervalo passa de 44 semanas. Confira as datas.'};
+      const tri = dias < 98 ? '1º trimestre' : dias < 196 ? '2º trimestre' : '3º trimestre';
+      return {principal: `${Math.floor(dias / 7)} sem e ${dias % 7} d`, faixa: tri,
+        detalhes: ['Data provável do parto: ' + fmtData(d + 280 * DIA), 'Dias desde a DUM: ' + dias]};
+    }
+  },
+  {
+    id: 'ag', emoji: '⚗️', titulo: 'Ânion gap', desc: 'Acidose metabólica',
+    campos: [
+      {id: 'na', rot: 'Sódio (mEq/L)', min: 100, max: 180},
+      {id: 'cl', rot: 'Cloro (mEq/L)', min: 50, max: 150},
+      {id: 'hco3', rot: 'Bicarbonato (mEq/L)', min: 2, max: 50}
+    ],
+    nota: 'Referência comum: cerca de 8 a 12 mEq/L, mas varia conforme o laboratório. Considere a correção pela albumina quando ela estiver baixa.',
+    calc: v => ({principal: fmt(v.na - (v.cl + v.hco3), 0) + ' mEq/L', detalhes: ['Fórmula: Na⁺ − (Cl⁻ + HCO₃⁻)']})
+  }
+];
+
+function campoHtml(c, f) {
+  const id = `${c.id}-${f.id}`;
+  if (f.tipo === 'select')
+    return `<label for="${id}">${f.rot}<select id="${id}"><option value="">Selecione</option>${f.opcoes.map(o => `<option value="${o.v}">${o.t}</option>`).join('')}</select></label>`;
+  if (f.tipo === 'date')
+    return `<label for="${id}">${f.rot}<input type="date" id="${id}" value="${f.hoje ? hoje() : ''}"></label>`;
+  return `<label for="${id}">${f.rot}<input type="number" id="${id}" inputmode="decimal" step="any" min="${f.min}" max="${f.max}"></label>`;
+}
+
+function renderCalcs() {
+  $('#listaCalcs').innerHTML = CALCS.map(c => `
+    <details class="calc" id="calc-${c.id}">
+      <summary><span class="emo" aria-hidden="true">${c.emoji}</span><span><strong>${c.titulo}</strong><small>${c.desc}</small></span></summary>
+      <div class="calc-corpo">
+        ${c.campos.map(f => campoHtml(c, f)).join('')}
+        <div class="resultado vazio" id="res-${c.id}" aria-live="polite">Preencha todos os campos para ver o resultado.</div>
+        <p class="nota">${c.nota || ''}</p>
+      </div>
+    </details>`).join('');
+  $$('.calc').forEach(d => d.addEventListener('input', () => calcular(d.id.slice(5))));
+}
+
+function calcular(id) {
+  const c = CALCS.find(x => x.id === id), out = $('#res-' + id), v = {};
+  for (const f of c.campos) {
+    const raw = $('#' + id + '-' + f.id).value;
+    if (raw === '') { out.className = 'resultado vazio'; out.textContent = 'Preencha todos os campos para ver o resultado.'; return; }
+    if (f.tipo === 'select' || f.tipo === 'date') { v[f.id] = raw; continue; }
+    const n = Number(raw);
+    if (!isFinite(n) || n < f.min || n > f.max) {
+      out.className = 'resultado erro'; out.textContent = `${f.rot}: use um valor entre ${f.min} e ${f.max}.`; return;
+    }
+    v[f.id] = n;
+  }
+  const r = c.calc(v);
+  if (r.erro) { out.className = 'resultado erro'; out.textContent = r.erro; return; }
+  out.className = 'resultado ok';
+  out.innerHTML = `<div class="principal">${r.principal}</div>${r.faixa ? `<div class="faixa">${r.faixa}</div>` : ''}
+    <ul>${(r.detalhes || []).map(d => `<li>${d}</li>`).join('')}</ul>`;
+}
+
+/* =====================================================
+   Biblioteca de links
+   ===================================================== */
+const BIBLIOTECA = [
+  {cat: '🏛️ Fontes oficiais e saúde pública', itens: [
+    {n: 'Ministério da Saúde', u: 'https://www.gov.br/saude/pt-br', d: 'Protocolos, campanhas, calendário de vacinação e programas do SUS.'},
+    {n: 'Conitec', u: 'https://www.gov.br/conitec/pt-br', d: 'Protocolos clínicos e diretrizes terapêuticas (PCDT) do SUS.'},
+    {n: 'DATASUS', u: 'https://datasus.saude.gov.br', d: 'Indicadores e estatísticas de saúde do Brasil.'},
+    {n: 'Bulário Eletrônico (Anvisa)', u: 'https://consultas.anvisa.gov.br/#/bulario/', d: 'Bulas oficiais de medicamentos registrados no Brasil.'},
+    {n: 'Organização Mundial da Saúde', u: 'https://www.who.int', d: 'Dados, guias e relatórios globais de saúde.'},
+    {n: 'Conselho Federal de Medicina', u: 'https://portal.cfm.org.br', d: 'Código de Ética Médica, resoluções e pareceres.'}
+  ]},
+  {cat: '🔎 Artigos e pesquisa', itens: [
+    {n: 'PubMed', u: 'https://pubmed.ncbi.nlm.nih.gov', d: 'Maior base de artigos biomédicos do mundo.'},
+    {n: 'SciELO', u: 'https://www.scielo.org', d: 'Biblioteca eletrônica de periódicos científicos em acesso aberto.'},
+    {n: 'Biblioteca Virtual em Saúde (BVS)', u: 'https://bvsalud.org', d: 'Busca em LILACS, MEDLINE e outras bases em português.'},
+    {n: 'Portal de Periódicos CAPES', u: 'https://www.periodicos.capes.gov.br', d: 'Acesso a revistas científicas via instituição de ensino.'},
+    {n: 'Cochrane Library', u: 'https://www.cochranelibrary.com', d: 'Revisões sistemáticas e evidência de alta qualidade.'},
+    {n: 'NCBI Bookshelf', u: 'https://www.ncbi.nlm.nih.gov/books/', d: 'Livros e capítulos de referência em acesso aberto.'}
+  ]},
+  {cat: '🩺 Sociedades médicas e diretrizes', itens: [
+    {n: 'Associação Médica Brasileira', u: 'https://amb.org.br', d: 'Projeto Diretrizes e notícias da classe médica.'},
+    {n: 'Sociedade Brasileira de Cardiologia', u: 'https://www.portal.cardiol.br', d: 'Diretrizes de cardiologia.'},
+    {n: 'Sociedade Brasileira de Pediatria', u: 'https://www.sbp.com.br', d: 'Documentos científicos e calendário vacinal.'},
+    {n: 'Sociedade Brasileira de Diabetes', u: 'https://diabetes.org.br', d: 'Diretrizes sobre diabetes.'},
+    {n: 'Febrasgo', u: 'https://www.febrasgo.org.br', d: 'Ginecologia e obstetrícia.'},
+    {n: 'Sociedade Brasileira de Nefrologia', u: 'https://www.sbn.org.br', d: 'Diretrizes de doenças renais.'},
+    {n: 'Sociedade Brasileira de Pneumologia e Tisiologia', u: 'https://sbpt.org.br', d: 'Diretrizes de doenças respiratórias.'}
+  ]},
+  {cat: '🦴 Estudo, atlas e imagens', itens: [
+    {n: 'Manual MSD (profissional)', u: 'https://www.msdmanuals.com/pt/profissional', d: 'Consulta rápida de doenças, diagnóstico e tratamento.'},
+    {n: 'TeachMeAnatomy', u: 'https://teachmeanatomy.info', d: 'Anatomia explicada por regiões e sistemas.'},
+    {n: 'Kenhub', u: 'https://www.kenhub.com', d: 'Atlas e vídeos de anatomia (parte do conteúdo é paga).'},
+    {n: 'Radiopaedia', u: 'https://radiopaedia.org', d: 'Casos e imagens de radiologia.'},
+    {n: 'Osmosis', u: 'https://www.osmosis.org', d: 'Vídeos e resumos de ciências básicas e clínica.'},
+    {n: 'Anki', u: 'https://apps.ankiweb.net', d: 'Aplicativo de flashcards usado por muitos estudantes de medicina.'}
+  ]},
+  {cat: '🧰 Referência clínica', itens: [
+    {n: 'UpToDate', u: 'https://www.uptodate.com', d: 'Referência clínica baseada em evidências (requer assinatura ou acesso institucional).'},
+    {n: 'MDCalc', u: 'https://www.mdcalc.com', d: 'Calculadoras e escores clínicos.'}
+  ]}
+];
+
+function cartaoLink(l, meu) {
+  return `<div class="${meu ? 'link-meu' : ''}" style="position:relative">
+    <a class="link" href="${esc(l.u || l.url)}" target="_blank" rel="noopener noreferrer"><strong>${esc(l.n || l.nome)}</strong><span>${esc(l.d || l.desc || '')}</span></a>
+    ${meu ? `<button class="btn sec mini x" style="position:absolute;right:8px;top:8px" data-acao="removerLink" data-id="${esc(l.id)}" aria-label="Remover link ${esc(l.nome)}">✕</button>` : ''}
+  </div>`;
+}
+
+function renderBiblioteca() {
+  const termo = $('#buscaLinks').value.trim().toLowerCase();
+  const html = BIBLIOTECA.map(g => {
+    const itens = g.itens.filter(i => !termo || (i.n + ' ' + i.d + ' ' + g.cat).toLowerCase().includes(termo));
+    return itens.length ? `<div class="categoria"><h3>${g.cat}</h3><div class="grade-links">${itens.map(i => cartaoLink(i, false)).join('')}</div></div>` : '';
+  }).join('');
+  $('#listaBiblioteca').innerHTML = html || '<p class="suave" style="margin-top:16px">Nenhum link encontrado. Tente outra palavra ou adicione o seu em “Meus links”.</p>';
+}
+
+function renderMeusLinks() {
+  $('#meusLinks').innerHTML = meusLinks.length
+    ? meusLinks.map(l => cartaoLink(l, true)).join('')
+    : '<p class="suave">Você ainda não adicionou links. Guarde aqui sites, playlists de aula, resumos e o que mais ajudar nos estudos.</p>';
+}
+
+/* =====================================================
+   Eventos
+   ===================================================== */
+document.addEventListener('click', e => {
+  const nav = e.target.closest('#abas button');
+  if (nav) { ir(nav.dataset.aba); return; }
+  const atalho = e.target.closest('[data-ir]');
+  if (atalho) { ir(atalho.dataset.ir); return; }
+  const sub = e.target.closest('#subabas button');
+  if (sub) { ui.sub = sub.dataset.sub; renderFlash(); return; }
+  const b = e.target.closest('[data-acao]');
+  if (b && acoes[b.dataset.acao]) acoes[b.dataset.acao](b);
+});
+
+$('#tema').addEventListener('click', () => {
+  const novo = document.documentElement.dataset.tema === 'escuro' ? 'claro' : 'escuro';
+  aplicarTema(novo); Store.set('tema', novo);
+});
+
+$('#selBaralho').addEventListener('change', e => { ui.baralho = e.target.value; ui.sessao = null; ui.editandoId = null; renderFlash(); });
+
+document.addEventListener('submit', e => {
+  if (e.target.id === 'formCartao') {
+    e.preventDefault();
+    const deckId = $('#cDeck').value, frente = $('#cFrente').value.trim(), verso = $('#cVerso').value.trim();
+    if (!frente || !verso) { avisar('Preencha a pergunta e a resposta'); return; }
+    if (ui.editandoId) {
+      const c = dados.cards.find(x => x.id === ui.editandoId);
+      if (c) { c.deckId = deckId; c.frente = frente; c.verso = verso; }
+      ui.editandoId = null; avisar('Cartão atualizado 💗');
+    } else {
+      dados.cards.push({id: uid(), deckId, frente, verso, ease: 2.5, intervalo: 0, due: 0, reps: 0, criado: Date.now()});
+      avisar('Cartão adicionado 💗');
+    }
+    salvar(); renderFlash();
+    if (!ui.editandoId) $('#cFrente')?.focus();
+  }
+  if (e.target.id === 'formLink') {
+    e.preventDefault();
+    const nome = $('#linkNome').value.trim(), url = $('#linkUrl').value.trim(), desc = $('#linkDesc').value.trim();
+    try {
+      const u = new URL(url);
+      if (!/^https?:$/.test(u.protocol)) throw new Error('protocolo');
+    } catch (err) { avisar('Endereço inválido. Comece com https://'); return; }
+    meusLinks.push({id: uid(), nome, url, desc});
+    Store.set('links', meusLinks); renderMeusLinks();
+    e.target.reset(); avisar('Link adicionado 💗');
+  }
+});
+
+document.addEventListener('input', e => {
+  if (e.target.id === 'buscaCartoes') {
+    ui.busca = e.target.value;
+    const pos = e.target.selectionStart;
+    renderCartoes();
+    const campo = $('#buscaCartoes'); campo.focus(); campo.setSelectionRange(pos, pos);
+  }
+  if (e.target.id === 'buscaLinks') renderBiblioteca();
+});
+
+$('#arqImport').addEventListener('change', e => {
+  const f = e.target.files[0]; if (f) importar(f);
+  e.target.value = '';
+});
+
+/* Atalhos de teclado na revisão (computador) */
+document.addEventListener('keydown', e => {
+  const s = ui.sessao;
+  if (ui.aba !== 'flashcards' || ui.sub !== 'estudar' || !s || !s.fila.length) return;
+  if (['INPUT', 'TEXTAREA', 'SELECT', 'BUTTON'].includes(e.target.tagName)) return;
+  if (!s.virado && (e.key === ' ' || e.key === 'Enter')) { e.preventDefault(); acoes.virar(); }
+  else if (s.virado && ['1', '2', '3', '4'].includes(e.key)) { e.preventDefault(); avaliar(Number(e.key) - 1); }
+});
+
+/* =====================================================
+   Início da aplicação
+   ===================================================== */
+(function iniciar() {
+  const salvo = Store.get('tema', null);
+  aplicarTema(salvo || (matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro'));
+  renderCalcs();
+  renderBiblioteca();
+  renderMeusLinks();
+  const alvo = location.hash.replace('#', '');
+  ir(['inicio', 'flashcards', 'calculadoras', 'biblioteca'].includes(alvo) ? alvo : 'inicio');
+})();
+</script>
+</body>
+</html>
